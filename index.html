@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rana Nagash - CS Student at UofT</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #1e40af;
+            --text: #1f2937;
+            --bg: #ffffff;
+            --accent: #dbeafe;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+
+        body {
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Header/Nav */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: var(--bg);
+            padding: 1rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        /* Hero Section */
+        #hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(45deg, var(--accent), var(--bg));
+        }
+
+        .hero-content {
+            text-align: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero-content p {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .cta-button:hover {
+            background: var(--secondary);
+        }
+
+        /* About Section */
+        #about {
+            background: var(--bg);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .profile-image {
+            width: 100%;
+            height: 400px;
+            background: var(--accent);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Projects Section */
+        #projects {
+            background: var(--accent);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            background: var(--bg);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-content h3 {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Skills Section */
+        #skills {
+            background: var(--bg);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 2rem;
+            text-align: center;
+        }
+
+        .skill-card {
+            padding: 1.5rem;
+            background: var(--accent);
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Contact Section */
+        #contact {
+            background: var(--accent);
+        }
+
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .social-links a {
+            color: var(--primary);
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">Rana Nagash</div>
+            <div class="nav-links">
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+    </header>
+
+    <section id="hero">
+        <div class="container hero-content">
+            <h1>Rana Nagash</h1>
+            <p>Computer Science Student at the University of Toronto</p>
+            <a href="#contact" class="cta-button">Get in Touch</a>
+        </div>
+    </section>
+
+    <section id="about">
+        <div class="container about-grid">
+            <div class="about-text">
+                <h2>About Me</h2>
+                <p>I'm a passionate Computer Science student with a strong interest in software development and problem-solving. Currently pursuing my degree at the University of Toronto, I'm constantly learning and building projects to expand my skills.</p>
+                <p>My focus areas include software development, data analysis, and statistics. I enjoy taking on challenging projects and collaborating with others to create innovative solutions.</p>
+            </div>
+            <div class="profile-image">
+                <img src="images/profileimage.jpg" alt="Programming Image" width="500" height="400">
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title">Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/1.png" alt="Text Adventure Game Image" width="300" height="200">
+                    </div>
+                    <div class="project-content">
+                        <h3>Text Adventure Game</h3>
+                        <p><b>Description:</b> This is a text-based adventure game built using Python, where players navigate through a fictional world by making choices that impact the story. The game features multiple paths, interactive storytelling, and simple inventory management.</p>
+                            <br>
+                            <p><b>Technologies Used:</b> Python with data structures, algorithms and object oriented programming. Linked Lists were used for the events in the game.</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/scanalysis.png" alt="Social Connections Analysis Image" width="300" height="200">
+                    </div>
+                    <div class="project-content">
+                        <h3>Social Connections Analysis</h3>
+                        <p><b>Description:</b> This project analyzed social connection patterns using statistical and data science methods. I explored relationships between variables like social media usage, time spent with friends, and loneliness through hypothesis testing, bootstrapping, and multilinear regression. The project aimed to answer key research questions about social interactions and their impact.</p>
+                            <br>
+                            <p><b>Technologies Used:</b> Python (Pandas, NumPy, Matplotlib, Statsmodels), Bootstrapping, Hypothesis Testing, Multilinear Regression</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/ttcanalysis.jpg" alt="TTC Analysis Image" width="300" height="200">
+                    </div>
+                    <div class="project-content">
+                        <h3>TTC Delays Analysis & Sentiment Study</h3>
+                        <p><b>Description:</b> This project analyzed a dataset of TTC subway delays to identify patterns and key insights. I developed Python methods to count the most frequent delays, categorize delay causes, and extract meaningful statistics. Additionally, I implemented sentiment analysis on public reactions to TTC delays, examining how people express frustration or support.</p>
+                            <br>
+                            <p><b>Technologies Used:</b> Python (with data classes).</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/portfolio.png" alt="Portfolio Image" width="300" height="200">
+                    </div>
+                    <div class="project-content">
+                        <h3>Personal Portfolio</h3>
+                        <p><b>Description:</b> Website to showcase my projects, skills, and experience.</p>
+                            <br>
+                            <p><b>Technologies Used:</b> HTML.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title">Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>Python</h3>
+                </div>
+                <div class="skill-card">
+                    <h3>HTML/CSS</h3>
+                </div>
+                <div class="skill-card">
+                    <h3>Git</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container contact-content">
+            <h2 class="section-title">Get in Touch</h2>
+            <p>I'm always open to new opportunities and collaborations. Feel free to reach out!</p>
+            <div class="social-links">
+                <a href="mailto:rananagash@gmail.com">Email</a>
+                <a href="https://github.com/rananagash">GitHub</a>
+                <a href="https://www.linkedin.com/in/rana-nagash-4041b430a/">LinkedIn</a>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
