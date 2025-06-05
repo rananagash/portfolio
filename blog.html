@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rana Nagash - Blog</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --accent: #64ffda;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 0;
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-primary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--accent);
+        }
+
+        /* Blog Header */
+        .blog-header {
+            padding: 150px 0 50px 0;
+            text-align: center;
+        }
+
+        .blog-header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-header p {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Blog Grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 50px 0;
+        }
+
+        .blog-card {
+            background-color: var(--bg-secondary);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-date {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-title {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .blog-preview {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .blog-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--accent);
+            border-radius: 15px;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .read-more {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal for Blog Posts */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: var(--bg-primary);
+            margin: 5% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 2rem;
+            top: 2rem;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--accent);
+        }
+
+        .modal-body {
+            margin-top: 2rem;
+        }
+
+        .modal-body img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            background-color: var(--bg-secondary);
+        }
+
+        @media (max-width: 768px) {
+            .blog-header h1 {
+                font-size: 2rem;
+            }
+
+            .modal-content {
+                margin: 2% auto;
+                width: 95%;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="container nav-content">
+            <a href="index.html" class="logo">RN</a>
+            <div class="nav-links">
+                <a href="index.html#about">About</a>
+                <a href="index.html#projects">Projects</a>
+                <a href="index.html#contact">Contact</a>
+                <a href="blog.html" class="active">Blog</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="blog-header">
+        <div class="container">
+            <h1>My Blog</h1>
+            <p>Thoughts, learnings, and insights from my journey in tech</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="blog-grid">
+            <div class="blog-card" onclick="openBlogPost('post1')">
+                <div class="blog-date">March 15, 2024</div>
+                <h3 class="blog-title">Getting Started with Web Development</h3>
+                <p class="blog-preview">
+                    My journey into web development began with a simple curiosity about how websites work. 
+                    In this post, I'll share my experience and some valuable resources that helped me along the way.
+                </p>
+                <div class="blog-tags">
+                    <span class="blog-tag">Web Dev</span>
+                    <span class="blog-tag">Learning</span>
+                </div>
+                <a href="#" class="read-more">Read More →</a>
+            </div>
+
+            <div class="blog-card" onclick="openBlogPost('post2')">
+                <div class="blog-date">March 10, 2024</div>
+                <h3 class="blog-title">The Power of Data Analysis</h3>
+                <p class="blog-preview">
+                    Exploring how data analysis can reveal hidden patterns and insights. 
+                    A deep dive into my experience with the TTC Delays Analysis project.
+                </p>
+                <div class="blog-tags">
+                    <span class="blog-tag">Data Science</span>
+                    <span class="blog-tag">Python</span>
+                </div>
+                <a href="#" class="read-more">Read More →</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Blog Post Modals -->
+    <div id="post1" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeBlogPost('post1')">&times;</span>
+            <div class="blog-date">March 15, 2024</div>
+            <h2 class="blog-title">Getting Started with Web Development</h2>
+            <div class="modal-body">
+                <p>My journey into web development began with a simple curiosity about how websites work. In this post, I'll share my experience and some valuable resources that helped me along the way.</p>
+                <h3>The Beginning</h3>
+                <p>When I first started learning web development, I was overwhelmed by the sheer amount of information available. Here's what I found most helpful:</p>
+                <ul>
+                    <li>Start with the basics: HTML and CSS</li>
+                    <li>Practice building simple websites</li>
+                    <li>Learn by doing real projects</li>
+                </ul>
+                <p>More content can be added here...</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="post2" class="modal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeBlogPost('post2')">&times;</span>
+            <div class="blog-date">March 10, 2024</div>
+            <h2 class="blog-title">The Power of Data Analysis</h2>
+            <div class="modal-body">
+                <p>Exploring how data analysis can reveal hidden patterns and insights. A deep dive into my experience with the TTC Delays Analysis project.</p>
+                <h3>Why Data Analysis Matters</h3>
+                <p>Through my work on the TTC Delays Analysis project, I discovered how data can tell compelling stories and drive decision-making.</p>
+                <p>More content can be added here...</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <p>Designed & Built by Rana Nagash</p>
+        </div>
+    </footer>
+
+    <script>
+        function openBlogPost(postId) {
+            document.getElementById(postId).style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeBlogPost(postId) {
+            document.getElementById(postId).style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        }
+    </script>
+</body>
+</html> 

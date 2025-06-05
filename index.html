@@ -4,59 +4,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rana Nagash - CS Student at UofT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #2563eb;
-            --secondary: #1e40af;
-            --text: #1f2937;
-            --bg: #ffffff;
-            --accent: #dbeafe;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #ffffff;
+            --text-secondary: #888888;
+            --accent: #64ffda;
+            --transition: all 0.3s ease;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
         }
 
         body {
-            color: var(--text);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
-        }
-
-        section {
-            padding: 5rem 2rem;
+            overflow-x: hidden;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 2rem;
         }
 
-        /* Header/Nav */
-        header {
+        /* Navigation */
+        nav {
             position: fixed;
             top: 0;
             width: 100%;
-            background: var(--bg);
-            padding: 1rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 1.5rem 0;
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
             z-index: 1000;
         }
 
-        nav {
+        .nav-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
         .logo {
-            font-weight: bold;
             font-size: 1.5rem;
-            color: var(--primary);
+            font-weight: 700;
+            color: var(--accent);
+            text-decoration: none;
         }
 
         .nav-links {
@@ -65,302 +69,609 @@
         }
 
         .nav-links a {
+            color: var(--text-primary);
             text-decoration: none;
-            color: var(--text);
             font-weight: 500;
+            transition: var(--transition);
         }
 
         .nav-links a:hover {
-            color: var(--primary);
+            color: var(--accent);
         }
 
         /* Hero Section */
-        #hero {
+        .hero {
             height: 100vh;
             display: flex;
             align-items: center;
-            background: linear-gradient(45deg, var(--accent), var(--bg));
+            padding-top: 80px;
         }
 
         .hero-content {
-            text-align: center;
+            max-width: 800px;
         }
 
-        .hero-content h1 {
-            font-size: 3.5rem;
+        .hero-subtitle {
+            color: var(--accent);
+            font-size: 1.2rem;
             margin-bottom: 1rem;
         }
 
-        .hero-content p {
+        .hero-title {
+            font-size: 4.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            line-height: 1.1;
+        }
+
+        .hero-title .name {
+            display: inline-block;
+        }
+
+        .hero-title .role {
+            display: block;
             font-size: 1.5rem;
-            color: var(--secondary);
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+        }
+
+        .typing-effect {
+            position: relative;
+        }
+
+        .typing-effect::after {
+            content: "|";
+            position: absolute;
+            right: -8px;
+            width: 8px;
+            color: var(--accent);
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .hero-description {
+            color: var(--text-secondary);
+            font-size: 1.25rem;
             margin-bottom: 2rem;
+            max-width: 600px;
         }
 
         .cta-button {
             display: inline-block;
             padding: 1rem 2rem;
-            background: var(--primary);
-            color: white;
+            background-color: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
             text-decoration: none;
-            border-radius: 5px;
-            font-weight: bold;
-            transition: background 0.3s;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: var(--transition);
         }
 
         .cta-button:hover {
-            background: var(--secondary);
+            background-color: rgba(100, 255, 218, 0.1);
         }
 
         /* About Section */
-        #about {
-            background: var(--bg);
+        .about {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
         }
 
         .about-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: 1fr;
             gap: 4rem;
             align-items: center;
         }
 
-        .about-text h2 {
-            font-size: 2.5rem;
+        .about-text p {
+            color: var(--text-secondary);
             margin-bottom: 1rem;
         }
 
-        .profile-image {
-            width: 100%;
-            height: 400px;
-            background: var(--accent);
-            border-radius: 10px;
+        .skills-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .skills-list li {
+            color: var(--accent);
+            background-color: rgba(100, 255, 218, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 15px;
+            margin-bottom: 0.5rem;
             display: flex;
             align-items: center;
-            justify-content: center;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .skills-list li::before {
+            content: "▹";
+            position: absolute;
+            left: 0.5rem;
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .skills-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
 
         /* Projects Section */
-        #projects {
-            background: var(--accent);
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
+        .projects {
+            padding: 100px 0;
+            background-color: var(--bg-secondary);
         }
 
         .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
+            align-items: stretch;
+            padding: 0 1rem;
         }
 
         .project-card {
-            background: var(--bg);
+            background-color: var(--bg-primary);
             border-radius: 10px;
+            padding: 2rem;
+            transition: var(--transition);
             overflow: hidden;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            max-width: 100%;
         }
 
         .project-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-10px);
         }
 
         .project-image {
-            width: 100%;
+            width: calc(100% + 4rem);
             height: 200px;
-            background: var(--accent);
+            margin: -2rem -2rem 2rem -2rem;
+            overflow: hidden;
+            position: relative;
+            background-color: var(--bg-secondary);
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            transition: var(--transition);
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
+        }
+
+        .project-links {
             display: flex;
-            align-items: center;
-            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            justify-content: flex-start;
+            width: 100%;
         }
 
-        .project-content {
-            padding: 1.5rem;
+        .project-links a {
+            color: var(--text-secondary);
+            font-size: 1.25rem;
+            transition: var(--transition);
         }
 
-        .project-content h3 {
+        .project-links a:hover {
+            color: var(--accent);
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .project-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            flex-grow: 1;
+        }
+
+        .project-tech {
+            margin-top: auto;
+            padding-top: 1rem;
+        }
+
+        .project-tech span {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--accent);
+            border-radius: 15px;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
             margin-bottom: 0.5rem;
+            transition: var(--transition);
         }
 
-        /* Skills Section */
-        #skills {
-            background: var(--bg);
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .skill-card {
-            padding: 1.5rem;
-            background: var(--accent);
-            border-radius: 10px;
-            transition: transform 0.3s;
-        }
-
-        .skill-card:hover {
-            transform: translateY(-5px);
+        .project-tech span:hover {
+            background-color: rgba(100, 255, 218, 0.2);
+            transform: translateY(-2px);
         }
 
         /* Contact Section */
-        #contact {
-            background: var(--accent);
-        }
-
-        .contact-content {
-            max-width: 600px;
-            margin: 0 auto;
+        .contact {
+            padding: 100px 0;
             text-align: center;
         }
 
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-top: 2rem;
+        .contact-title {
+            font-size: 3rem;
+            margin-bottom: 1rem;
         }
 
-        .social-links a {
-            color: var(--primary);
-            font-size: 1.5rem;
-            text-decoration: none;
+        .contact-description {
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .about-grid {
-                grid-template-columns: 1fr;
+            .hero-title {
+                font-size: 3rem;
             }
 
-            .hero-content h1 {
-                font-size: 2.5rem;
+            .about-grid {
+                grid-template-columns: 1fr;
             }
 
             .nav-links {
                 display: none;
             }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+                padding: 0;
+            }
+        }
+
+        /* Blog Section */
+        .blog {
+            padding: 100px 0;
+            background-color: var(--bg-secondary);
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .blog-card {
+            background-color: var(--bg-primary);
+            border-radius: 10px;
+            padding: 2rem;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .blog-date {
+            color: var(--accent);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .blog-title {
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+
+        .blog-preview {
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .blog-tag {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background-color: rgba(100, 255, 218, 0.1);
+            color: var(--accent);
+            border-radius: 15px;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .read-more {
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* Modal for Blog Posts */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .modal-content {
+            background-color: var(--bg-primary);
+            margin: 5% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 800px;
+            border-radius: 10px;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            right: 2rem;
+            top: 2rem;
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .close-modal:hover {
+            color: var(--accent);
+        }
+
+        .modal-body {
+            margin-top: 2rem;
+        }
+
+        .modal-body img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin: 1rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 2% auto;
+                width: 95%;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <nav>
-            <div class="logo">Rana Nagash</div>
+    <nav>
+        <div class="container nav-content">
+            <a href="#" class="logo">RN</a>
             <div class="nav-links">
                 <a href="#about">About</a>
                 <a href="#projects">Projects</a>
-                <a href="#skills">Skills</a>
                 <a href="#contact">Contact</a>
+                <a href="blog.html">Blog</a>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
 
-    <section id="hero">
-        <div class="container hero-content">
-            <h1>Rana Nagash</h1>
-            <p>Computer Science Student at the University of Toronto</p>
-            <a href="#contact" class="cta-button">Get in Touch</a>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <p class="hero-subtitle">Hi, my name is</p>
+                <h1 class="hero-title">
+                    <span class="name">Rana Naga<span class="typing-effect">sh</span></span>
+                    <span class="role">CS Student at UofT</span>
+                </h1>
+                <p class="hero-description">
+                    I'm a passionate Computer Science student with a strong interest in software development and problem-solving.
+                    Currently pursuing my degree at the University of Toronto, I'm constantly learning and building projects to expand my skills.
+                </p>
+                <a href="#projects" class="cta-button">Check out my work</a>
+            </div>
         </div>
     </section>
 
-    <section id="about">
-        <div class="container about-grid">
-            <div class="about-text">
-                <h2>About Me</h2>
-                <p>I'm a passionate Computer Science student with a strong interest in software development and problem-solving. Currently pursuing my degree at the University of Toronto, I'm constantly learning and building projects to expand my skills.</p>
-                <p>My focus areas include software development, data analysis, and statistics. I enjoy taking on challenging projects and collaborating with others to create innovative solutions.</p>
-            </div>
-            <div class="profile-image">
-                <img src="images/profileimage.jpg" alt="Programming Image" width="500" height="400">
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Me</h2>
+            <div class="about-grid">
+                <div class="about-text">
+                    <p>
+                        Hi! I’m Rana Nagash — a Computer Science undergraduate at the University of Toronto, St. George. 
+                        I enjoy developing projects that combine AI, data analysis, and creative problem-solving.
+                    </p>
+                    <p>
+                        I’ve always been drawn to solving real-world problems and thinking critically about how things work. 
+                        From a young age, I looked for creative ways to improve everyday experiences. That curiosity led me to study computer science and build tools that make an impact.
+                    </p>
+                    <p>Fast-forward to today, I’ve had the opportunity to work on many meaningful projects. 
+                        I’m currently interning at Bibber as a Software Engineer, building a full-stack Android app using Kotlin.
+                    </p>
+                    <p>Here are a few technologies I've been working with recently:</p>
+                    <ul class="skills-list">
+                        <li>Python</li>
+                        <li>TypeScript</li>
+                        <li>HTML/CSS</li>
+                        <li>React</li>
+                        <li>Kotlin</li>
+                        <li>Git</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="projects">
+    <section id="projects" class="projects">
         <div class="container">
             <h2 class="section-title">Projects</h2>
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="images/1.png" alt="Text Adventure Game Image" width="300" height="200">
+                        <img src="images/chatbot.png" alt="CelebrityBot Chatbot Image">
                     </div>
-                    <div class="project-content">
-                        <h3>Text Adventure Game</h3>
-                        <p><b>Description:</b> This is a text-based adventure game built using Python, where players navigate through a fictional world by making choices that impact the story. The game features multiple paths, interactive storytelling, and simple inventory management.</p>
-                            <br>
-                            <p><b>Technologies Used:</b> Python with data structures, algorithms and object oriented programming. Linked Lists were used for the events in the game.</p>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <div class="project-image">
-                        <img src="images/scanalysis.png" alt="Social Connections Analysis Image" width="300" height="200">
-                    </div>
-                    <div class="project-content">
-                        <h3>Social Connections Analysis</h3>
-                        <p><b>Description:</b> This project analyzed social connection patterns using statistical and data science methods. I explored relationships between variables like social media usage, time spent with friends, and loneliness through hypothesis testing, bootstrapping, and multilinear regression. The project aimed to answer key research questions about social interactions and their impact.</p>
-                            <br>
-                            <p><b>Technologies Used:</b> Python (Pandas, NumPy, Matplotlib, Statsmodels), Bootstrapping, Hypothesis Testing, Multilinear Regression</p>
+                    <h3 class="project-title">CelebrityBot Chatbot</h3>
+                    <p class="project-description">
+                        Chat with a celebrity! An N-gram model to mimic celebrity speech and highlight the risks of AI misinformation.
+                    </p>
+                    <div class="project-tech">
+                        <span>NumPy</span>
+                        <span>SciPy</span>
+                        <span>Python</span>
+                        <span>NLTK</span>
+                        <span>networkX</span>
+                        <span>Plotly</span>
+                        <span>TKinter GUI</span>
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="images/ttcanalysis.jpg" alt="TTC Analysis Image" width="300" height="200">
+                        <img src="images/portfolio.png" alt="Portfolio Website Image">
                     </div>
-                    <div class="project-content">
-                        <h3>TTC Delays Analysis & Sentiment Study</h3>
-                        <p><b>Description:</b> This project analyzed a dataset of TTC subway delays to identify patterns and key insights. I developed Python methods to count the most frequent delays, categorize delay causes, and extract meaningful statistics. Additionally, I implemented sentiment analysis on public reactions to TTC delays, examining how people express frustration or support.</p>
-                            <br>
-                            <p><b>Technologies Used:</b> Python (with data classes).</p>
+                    <h3 class="project-title">Personal Portfolio</h3>
+                    <p class="project-description">
+                        A responsive site showcasing my work, skills, and what I'm building next.
+                    </p>
+                    <div class="project-tech">
+                        <span>HTML</span>
+                        <span>CSS</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://github.com/rananagash/portfolio" target="_blank"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="images/portfolio.png" alt="Portfolio Image" width="300" height="200">
+                        <img src="images/adventure_game.png" alt="Text Adventure Game Image">
                     </div>
-                    <div class="project-content">
-                        <h3>Personal Portfolio</h3>
-                        <p><b>Description:</b> Website to showcase my projects, skills, and experience.</p>
-                            <br>
-                            <p><b>Technologies Used:</b> HTML.</p>
+                    <h3 class="project-title">Text Adventure Game</h3>
+                    <p class="project-description">
+                        Navigate a branching story world in this Python-built interactive game with multiple endings and a simple inventory system.
+                    </p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Linked Lists</span>
+                        <span>Object-Oriented Programming</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/scanalysis.png" alt="Social Connections Analysis Image">
+                    </div>
+                    <h3 class="project-title">Social Connections Analysis</h3>
+                    <p class="project-description">
+                        Data science meets social life—exploring how friendships, social media, and loneliness connect using stats and regression.
+                    </p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Pandas</span>
+                        <span>NumPy</span>
+                        <span>Matplotlib</span>
+                        <span>Statsmodels</span>
+                        <span>Bootstrapping</span>
+                        <span>Hypothesis Testing</span>
+                        <span>Multilinear Regression</span>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="images/ttcanalysis.jpg" alt="TTC Analysis Image">
+                    </div>
+                    <h3 class="project-title">TTC Delays Analysis</h3>
+                    <p class="project-description">
+                        Uncovered patterns in Toronto subway delays and analyzed public reactions with custom Python tools and sentiment analysis.
+                    </p>
+                    <div class="project-tech">
+                        <span>Python</span>
+                        <span>Data Analysis</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="skills">
+    <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title">Skills</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
-                    <h3>Python</h3>
-                </div>
-                <div class="skill-card">
-                    <h3>HTML/CSS</h3>
-                </div>
-                <div class="skill-card">
-                    <h3>Git</h3>
-                </div>
+            <h2 class="contact-title">Get In Touch</h2>
+            <p class="contact-description">
+                I'm always open to new opportunities and collaborations. Feel free to reach out!
+            </p>
+            <div class="social-links">
+                <a href="mailto:rananagash@gmail.com" class="cta-button">Email</a>
+                <a href="https://github.com/rananagash" class="cta-button">GitHub</a>
+                <a href="https://www.linkedin.com/in/rana-nagash-4041b430a/" class="cta-button">LinkedIn</a>
             </div>
         </div>
     </section>
 
-    <section id="contact">
-        <div class="container contact-content">
-            <h2 class="section-title">Get in Touch</h2>
-            <p>I'm always open to new opportunities and collaborations. Feel free to reach out!</p>
-            <div class="social-links">
-                <a href="mailto:rananagash@gmail.com">Email</a>
-                <a href="https://github.com/rananagash">GitHub</a>
-                <a href="https://www.linkedin.com/in/rana-nagash-4041b430a/">LinkedIn</a>
-            </div>
+    <footer>
+        <div class="container">
+            <p>Rana Nagash 2025 - All rights reserved</p>
         </div>
-    </section>
+    </footer>
+
+    <script>
+        function openBlogPost(postId) {
+            document.getElementById(postId).style.display = "block";
+            document.body.style.overflow = "hidden";
+        }
+
+        function closeBlogPost(postId) {
+            document.getElementById(postId).style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        // Close modal when clicking outside of it
+        window.onclick = function(event) {
+            if (event.target.classList.contains('modal')) {
+                event.target.style.display = "none";
+                document.body.style.overflow = "auto";
+            }
+        }
+    </script>
 </body>
 </html>
