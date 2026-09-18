@@ -1,65 +1,44 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { theme } from '../styles/theme';
 
+const Wrap = styled.header`
+  position: fixed; inset: 18px 0 auto; z-index: 50; pointer-events: none;
+`;
 const Nav = styled.nav`
-  position: fixed;
-  top: 0;
-  width: 100%;
-  padding: 1.5rem 0;
-  background-color: rgba(10, 10, 10, 0.95);
-  backdrop-filter: blur(10px);
-  z-index: 1000;
+  pointer-events: auto; width: min(900px, calc(100% - 32px)); margin: auto; min-height: 62px; padding: 8px 10px 8px 18px;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  background: rgba(255,253,248,.86); border: 1.5px solid ${theme.colors.line}; border-radius: 18px;
+  box-shadow: 4px 5px 0 rgba(24,24,23,.12); backdrop-filter: blur(16px);
 `;
-
-const NavContent = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const Logo = styled(Link)`
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: ${theme.colors.accent};
-`;
-
-const NavLinks = styled.div`
-  display: flex;
-  gap: 2rem;
-
-  @media (max-width: 768px) {
-    display: none;
+const Brand = styled.a`font-weight: 900; letter-spacing: -.04em; font-size: 1.15rem; white-space: nowrap; span { color: ${theme.colors.blue}; }`;
+const Links = styled.div<{ $open: boolean }>`
+  display: flex; align-items: center; gap: 4px;
+  a { padding: 10px 12px; border-radius: 10px; font-size: .9rem; font-weight: 700; &:hover { background: ${theme.colors.paperStrong}; } }
+  @media (max-width: 700px) {
+    display: ${({ $open }) => $open ? 'flex' : 'none'}; position: absolute; top: 72px; left: 16px; right: 16px; padding: 12px;
+    flex-direction: column; align-items: stretch; background: ${theme.colors.white}; border: 1.5px solid ${theme.colors.line}; border-radius: 16px; box-shadow: 4px 5px 0 rgba(24,24,23,.12);
   }
 `;
-
-const NavLink = styled(Link)`
-  color: ${theme.colors.textPrimary};
-  font-weight: 500;
-  transition: ${theme.transitions.default};
-
-  &:hover {
-    color: ${theme.colors.accent};
-  }
+const Status = styled.a`
+  display: flex !important; align-items: center; gap: 7px; background: ${theme.colors.lime} !important; border: 1px solid ${theme.colors.line};
+  &::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #238636; box-shadow: 0 0 0 3px rgba(35,134,54,.14); }
+`;
+const Menu = styled.button`
+  display: none; width: 42px; height: 42px; border: 0; border-radius: 10px; background: ${theme.colors.ink}; color: white; cursor: pointer; font-size: 1.25rem;
+  @media (max-width: 700px) { display: grid; place-items: center; }
 `;
 
-const Navbar: React.FC = () => {
-  return (
-    <Nav>
-      <div className="container">
-        <NavContent>
-          <Logo to="/">RN</Logo>
-          <NavLinks>
-            <NavLink to="/blog">Blog</NavLink>
-            <NavLink to="/#about">About</NavLink>
-            <NavLink to="/#projects">Projects</NavLink>
-            <NavLink to="/#contact">Contact</NavLink>
-          </NavLinks>
-        </NavContent>
-      </div>
-    </Nav>
-  );
+const Navbar = () => {
+  const [open, setOpen] = useState(false);
+  useEffect(() => { const close = () => setOpen(false); window.addEventListener('resize', close); return () => window.removeEventListener('resize', close); }, []);
+  return <Wrap><Nav aria-label="Main navigation">
+    <Brand href="#top" onClick={() => setOpen(false)}>RANA<span>.</span></Brand>
+    <Links $open={open}>
+      <a href="#work" onClick={() => setOpen(false)}>Work</a><a href="#experience" onClick={() => setOpen(false)}>Experience</a><a href="#playground" onClick={() => setOpen(false)}>Playground</a><a href="#about" onClick={() => setOpen(false)}>About</a>
+      <Status href="mailto:nagashrana@gmail.com">Let’s talk</Status>
+    </Links>
+    <Menu type="button" aria-label="Toggle navigation" aria-expanded={open} onClick={() => setOpen(!open)}>{open ? '×' : '☰'}</Menu>
+  </Nav></Wrap>;
 };
-
-export default Navbar; 
+export default Navbar;

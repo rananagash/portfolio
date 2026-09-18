@@ -1,0 +1,10 @@
+import styled from 'styled-components';
+import { theme } from '../styles/theme';
+
+const Section=styled.section`padding:35px 0 24px;`;
+const Card=styled.div`position:relative;overflow:hidden;background:${theme.colors.ink};color:white;border-radius:${theme.radius.large};padding:clamp(35px,7vw,85px);&::after{content:'↗';position:absolute;right:-20px;bottom:-70px;font-size:16rem;line-height:1;color:${theme.colors.blue};opacity:.65;transform:rotate(-8deg)}small{font:800 .78rem ${theme.fonts.mono};text-transform:uppercase;letter-spacing:.1em;color:${theme.colors.lime}}h2{position:relative;z-index:1;font-size:clamp(3rem,7.4vw,7rem);line-height:.9;letter-spacing:-.07em;max-width:900px;margin:22px 0 34px}p{position:relative;z-index:1;color:#bbb;max-width:510px;font-size:1.05rem}`;
+const Links=styled.div`position:relative;z-index:1;display:flex;flex-wrap:wrap;gap:11px;margin-top:30px;a{padding:12px 16px;border:1px solid #777;border-radius:11px;font-weight:800;background:#242424;transition:.2s;&:first-child{background:${theme.colors.lime};color:${theme.colors.ink};border-color:${theme.colors.lime}}&:hover{transform:translateY(-3px);border-color:white}}`;
+const Footer=styled.footer`display:flex;justify-content:space-between;gap:20px;padding:25px 4px 0;color:${theme.colors.muted};font:700 .7rem ${theme.fonts.mono};text-transform:uppercase;@media(max-width:600px){flex-direction:column}`;
+
+const Contact=()=> <Section id="contact"><div className="container"><Card><small>Next mission?</small><h2>Have a weird idea worth building?</h2><p>I’m open to software engineering opportunities, collaborations, and conversations about AI, education, or creative technology.</p><Links><a href="mailto:nagashrana@gmail.com">Email me ↗</a><a href="https://github.com/rananagash" target="_blank" rel="noreferrer">GitHub ↗</a><a href="https://www.linkedin.com/in/rana-nagash" target="_blank" rel="noreferrer">LinkedIn ↗</a></Links></Card><Footer><span>Designed + built by Rana Nagash</span><span>Toronto · 2026</span></Footer></div></Section>;
+export default Contact;

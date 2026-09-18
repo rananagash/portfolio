@@ -1,191 +1,42 @@
-import React from 'react';
+import { motion, useReducedMotion } from 'framer-motion';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
 import { theme } from '../styles/theme';
 
-const ProjectsSection = styled.section`
-  padding: 100px 0;
-`;
+const Section=styled.section`padding:120px 0;background:${theme.colors.white};border-block:1.5px solid ${theme.colors.line};`;
+const Head=styled.div`display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:55px;@media(max-width:650px){align-items:start;flex-direction:column;}`;
+const Kicker=styled.p`font:800 .78rem ${theme.fonts.mono};text-transform:uppercase;letter-spacing:.1em;color:${theme.colors.blue};margin-bottom:12px;`;
+const Heading=styled.h2`font-size:clamp(2.8rem,6vw,5.5rem);line-height:.95;letter-spacing:-.06em;margin:0;`;
+const Intro=styled.p`max-width:430px;color:${theme.colors.muted};font-size:1.05rem;margin:0;`;
+const List=styled.div`display:grid;gap:90px;`;
+const Project=styled(motion.article)`display:grid;grid-template-columns:1fr 1fr;gap:52px;align-items:center;&:nth-child(even){.visual{order:2}}@media(max-width:850px){grid-template-columns:1fr;gap:30px;&:nth-child(even){.visual{order:0}}}`;
+const Visual=styled.div<{ $tone:string }>`position:relative;overflow:hidden;min-height:470px;background:${p=>p.$tone};border:1.5px solid ${theme.colors.line};border-radius:${theme.radius.large};box-shadow:8px 9px 0 ${theme.colors.line};padding:50px 30px 30px;display:grid;place-items:center;@media(max-width:500px){min-height:370px;padding:45px 18px 18px;box-shadow:5px 6px 0 ${theme.colors.line};}`;
+const VisualBar=styled.div`position:absolute;inset:0 0 auto;height:42px;border-bottom:1.5px solid ${theme.colors.line};background:rgba(255,255,255,.55);display:flex;align-items:center;gap:6px;padding:0 15px;i{width:9px;height:9px;border:1px solid ${theme.colors.line};border-radius:50%;background:${theme.colors.orange}i:nth-child(2){background:${theme.colors.lime}}i:nth-child(3){background:white}}`;
+const ProjectImage=styled.img`width:100%;height:100%;min-height:360px;object-fit:cover;object-position:top;border:1.5px solid ${theme.colors.line};border-radius:17px;box-shadow:7px 8px 0 rgba(24,24,23,.22);background:white;@media(max-width:500px){min-height:280px;}`;
+const Number=styled.span`position:absolute;z-index:2;top:56px;left:15px;background:${theme.colors.ink};color:white;border-radius:999px;padding:6px 9px;font:700 .7rem ${theme.fonts.mono};`;
+const Meta=styled.p`font:700 .75rem ${theme.fonts.mono};text-transform:uppercase;letter-spacing:.07em;color:${theme.colors.blue};margin-bottom:13px;`;
+const Name=styled.h3`font-size:clamp(2.4rem,4.6vw,4.2rem);line-height:.95;letter-spacing:-.055em;margin-bottom:18px;`;
+const Desc=styled.p`font-size:1.12rem;color:${theme.colors.muted};max-width:560px;margin-bottom:22px;`;
+const Points=styled.ul`padding:0;margin:0 0 25px;list-style:none;display:grid;gap:12px;li{position:relative;padding-left:23px;color:${theme.colors.ink};font-size:.94rem}li::before{content:'↳';position:absolute;left:0;color:${theme.colors.blue};font-weight:900}`;
+const Tags=styled.div`display:flex;flex-wrap:wrap;gap:8px;span{padding:7px 10px;border:1px solid ${theme.colors.line};border-radius:999px;font:700 .68rem ${theme.fonts.mono};background:${theme.colors.paper};}`;
+const LaunchLink=styled.a`display:inline-flex;align-items:center;gap:8px;margin-top:24px;padding:12px 15px;background:${theme.colors.ink};color:white;border:1.5px solid ${theme.colors.line};border-radius:11px;box-shadow:3px 4px 0 ${theme.colors.blue};font-weight:900;transition:.18s transform,.18s box-shadow;&:hover{transform:translate(2px,2px);box-shadow:1px 2px 0 ${theme.colors.blue};}`;
+const BuildHead=styled.div`margin-top:110px;padding-top:35px;border-top:1.5px solid ${theme.colors.line};display:flex;justify-content:space-between;gap:25px;align-items:end;h3{font-size:clamp(2.2rem,4.5vw,4rem);letter-spacing:-.055em;line-height:1;margin:0}p{max-width:440px;color:${theme.colors.muted};margin:0}@media(max-width:650px){align-items:start;flex-direction:column;}`;
+const BuildGrid=styled.div`display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:32px;@media(max-width:900px){grid-template-columns:1fr;}`;
+const BuildCard=styled.article`position:relative;min-height:390px;padding:25px;border:1.5px solid ${theme.colors.line};border-radius:${theme.radius.medium};background:${theme.colors.paper};box-shadow:5px 6px 0 ${theme.colors.line};display:flex;flex-direction:column;overflow:hidden;&::before{content:attr(data-symbol);position:absolute;right:-8px;top:-28px;font-size:7rem;color:${theme.colors.blue};opacity:.1;font-weight:900}small{font:800 .68rem ${theme.fonts.mono};text-transform:uppercase;letter-spacing:.07em;color:${theme.colors.blue}}h4{font-size:1.65rem;line-height:1.05;letter-spacing:-.035em;margin:35px 0 16px}ul{list-style:none;padding:0;margin:0;display:grid;gap:11px;color:${theme.colors.muted};font-size:.88rem}li{position:relative;padding-left:17px}li::before{content:'·';position:absolute;left:0;color:${theme.colors.blue};font-weight:900}.stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:20px}.stack span{padding:5px 7px;background:white;border:1px solid ${theme.colors.line};border-radius:7px;font:700 .62rem ${theme.fonts.mono}}`;
+const CardLinks=styled.div`display:flex;flex-wrap:wrap;gap:14px;margin-top:auto;padding-top:25px;a{font-weight:900;border-bottom:2px solid ${theme.colors.line};padding-bottom:2px;&:hover{color:${theme.colors.blue};border-color:${theme.colors.blue}}`;
+const SideHead=styled.div`margin-top:105px;padding-top:35px;border-top:1.5px solid ${theme.colors.line};display:flex;justify-content:space-between;gap:25px;align-items:end;h3{font-size:clamp(2rem,4vw,3.5rem);letter-spacing:-.05em;margin:0}p{max-width:430px;color:${theme.colors.muted};margin:0}@media(max-width:650px){align-items:start;flex-direction:column;}`;
+const Archive=styled.div`display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px;@media(max-width:850px){grid-template-columns:repeat(2,1fr)}@media(max-width:560px){grid-template-columns:1fr;}`;
+const SmallCard=styled.article`min-height:190px;padding:22px;border:1.5px solid ${theme.colors.line};border-radius:${theme.radius.medium};background:${theme.colors.paper};display:flex;flex-direction:column;transition:.2s transform;&:hover{transform:translateY(-4px)}span{font:700 .67rem ${theme.fonts.mono};color:${theme.colors.blue};text-transform:uppercase}h4{font-size:1.25rem;margin:auto 0 8px}p{font-size:.88rem;color:${theme.colors.muted};margin:0}`;
 
-const ProjectsGrid = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-  gap: 2rem;
-  margin-top: 3rem;
-`;
+const featured=[
+ {title:'UofT Launchpad',label:'Student product · 30+ mentees',tone:'#9db1ff',href:'https://uoft-launchpad.vercel.app/',image:'/images/uoft-launchpad.png',summary:'A student platform built from the real pain points first-year students face—from understanding grades to managing meal plans and navigating campus life.',points:['Built grade forecasting calculators, meal-plan pacing trackers, and practical campus guides for 30+ first-year mentees.','Created an AI syllabus parser that turns uploaded PDF course outlines into structured grading schemes without manual data entry.','Designed relational tables and row-level security policies for student profiles, course weightings, and private term budgets.'],tags:['Next.js','TypeScript','React','Gemini API','Supabase','PostgreSQL','Tailwind CSS']},
+ {title:'Elefrench',label:'Full-stack learning platform · live client use',tone:'#ffb49a',href:'https://elefrench.vercel.app/',image:'/images/elefrench.png',summary:'An adaptive French-learning product designed and deployed for tutoring clients, with AI-generated practice that responds to each student’s history.',points:['Shipped secure authentication, protected routes, and interactive AI feedback for learners from grades 1–8.','Built a Gemini-powered quiz pipeline with an in-memory cache to eliminate redundant retry calls and reduce response latency.','Created an adaptive difficulty engine across four core skills, adjusting quiz complexity from each learner’s historical performance.'],tags:['Express.js','TypeScript','React','Gemini API','Supabase','PostgreSQL','Tailwind CSS']}
+];
+const side=[['CelebrityBot','NLP experiment','An N-gram chatbot exploring synthetic celebrity speech and AI misinformation.'],['Air Quality Analysis','School / data','Machine-learning exploration of pollution patterns and environmental data.'],['TTC Delays','School / data','Transit delay patterns paired with public sentiment analysis.'],['Social Connections','School / statistics','Regression and hypothesis testing around friendship, social media, and loneliness.'],['Text Adventure','School / Python','A branching story world with linked structures, inventory, and multiple endings.'],['Personal Journal','Side project','A focused digital writing space designed for everyday reflection.']];
+const builds=[
+ {title:'Concurrent Chat Server',label:'Systems + networking',symbol:'⌁',points:['Handled 1,000+ concurrent clients with select() I/O multiplexing, channel rooms, private DMs, and live presence.','Hardened the server against buffer overflows, SIGPIPE crashes, and zombie processes with defensive C practices.'],tags:['C','Linux','Sockets','select()'],href:'https://github.com/rananagash/chat-server',report:new URL('../../documents/CSC209___A3.pdf',import.meta.url).href},
+ {title:'Social Movie Night',label:'Team software project',symbol:'◫',points:['Redesigned the landing page and navigation to restore access to search, profiles, and TMDB-powered features.','Built the authentication system and unified profile UI with 100% JUnit coverage.'],tags:['Java','Clean Architecture','SOLID','TMDB API','JUnit'],href:'https://github.com/rananagash/team-project',report:new URL('../../documents/CSC207 Final Presentation (1).pdf',import.meta.url).href},
+ {title:'Dr. Mario',label:'Low-level game project',symbol:'✚',points:['Recreated the Dr. Mario game in assembly language as a hands-on exploration of low-level programming and game logic.'],tags:['Assembly','Game development'],href:'https://github.com/rananagash/Assembly-Language-Project',report:new URL('../../documents/Assembly_Project__Dr_Mario.pdf',import.meta.url).href}
+];
 
-const ProjectCard = styled(motion.div)`
-  background-color: ${theme.colors.bgSecondary};
-  border-radius: ${theme.borderRadius.medium};
-  padding: 2rem;
-  transition: ${theme.transitions.default};
-  cursor: pointer;
-
-  &:hover {
-    transform: translateY(-5px);
-  }
-`;
-
-const ProjectImage = styled.div`
-  margin-bottom: 1.5rem;
-  
-  img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-    border-radius: ${theme.borderRadius.small};
-  }
-`;
-
-const ProjectTitle = styled.h3`
-  font-size: 1.5rem;
-  color: ${theme.colors.textPrimary};
-  margin-bottom: 1rem;
-`;
-
-const ProjectDescription = styled.p`
-  color: ${theme.colors.textSecondary};
-  margin-bottom: 1.5rem;
-  line-height: 1.6;
-`;
-
-const ProjectTech = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-`;
-
-const TechTag = styled.span`
-  background-color: rgba(100, 255, 218, 0.1);
-  color: ${theme.colors.accent};
-  padding: 0.25rem 0.75rem;
-  border-radius: 15px;
-  font-size: 0.9rem;
-`;
-
-const ProjectLinks = styled.div`
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-`;
-
-const ProjectLink = styled.a`
-  color: ${theme.colors.accent};
-  font-size: 1.2rem;
-  transition: ${theme.transitions.default};
-
-  &:hover {
-    transform: translateY(-2px);
-  }
-`;
-
-const Projects = () => {
-  const projects = [
-    {
-      id: 1,
-      title: "Air Quality ML Analysis",
-      description: "Machine learning analysis of air quality data to predict pollution levels and identify environmental patterns using advanced ML algorithms and data visualization.",
-      image: "/images/air-quality.jpg", // Add your image to images/air-quality.jpg
-      tech: ["Python", "Scikit-learn", "Pandas", "NumPy", "Matplotlib", "Seaborn", "Jupyter"],
-      github: "https://github.com/rananagash/air-quality-ml",
-      demo: null
-    },
-    {
-      id: 2,
-      title: "CelebrityBot Chatbot",
-      description: "Chat with a celebrity! An N-gram model to mimic celebrity speech and highlight the risks of AI misinformation.",
-      image: "/images/chatbot.png",
-      tech: ["NumPy", "SciPy", "Python", "NLTK", "networkX", "Plotly", "TKinter GUI"],
-      github: null,
-      demo: null
-    },
-    {
-      id: 3,
-      title: "Personal Portfolio",
-      description: "A responsive site showcasing my work, skills, and what I'm building next.",
-      image: "/images/portfolio.png",
-      tech: ["HTML", "CSS", "React", "TypeScript", "Styled Components"],
-      github: "https://github.com/rananagash/portfolio",
-      demo: null
-    },
-    {
-      id: 4,
-      title: "Text Adventure Game",
-      description: "Navigate a branching story world in this Python-built interactive game with multiple endings and a simple inventory system.",
-      image: "/images/adventure_game.png",
-      tech: ["Python", "Linked Lists", "Object-Oriented Programming"],
-      github: null,
-      demo: null
-    },
-    {
-      id: 5,
-      title: "Social Connections Analysis",
-      description: "Data science meets social life—exploring how friendships, social media, and loneliness connect using stats and regression.",
-      image: "/images/scanalysis.png",
-      tech: ["Python", "Pandas", "NumPy", "Matplotlib", "Statsmodels", "Bootstrapping", "Hypothesis Testing", "Multilinear Regression"],
-      github: null,
-      demo: null
-    },
-    {
-      id: 6,
-      title: "TTC Delays Analysis",
-      description: "Uncovered patterns in Toronto subway delays and analyzed public reactions with custom Python tools and sentiment analysis.",
-      image: "/images/ttcanalysis.jpg",
-      tech: ["Python", "Data Analysis", "Sentiment Analysis"],
-      github: null,
-      demo: null
-    }
-  ];
-
-  return (
-    <ProjectsSection id="projects">
-      <div className="container">
-        <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          viewport={{ once: true }}
-          style={{
-            fontSize: '2rem',
-            marginBottom: '2rem',
-            color: theme.colors.textPrimary
-          }}
-        >
-          Projects
-        </motion.h2>
-        <ProjectsGrid>
-          {projects.map((project, index) => (
-            <ProjectCard
-              key={project.id}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
-            >
-              <ProjectImage>
-                <img src={project.image} alt={`${project.title} Image`} />
-              </ProjectImage>
-              <ProjectTitle>{project.title}</ProjectTitle>
-              <ProjectDescription>{project.description}</ProjectDescription>
-              <ProjectTech>
-                {project.tech.map((tech, techIndex) => (
-                  <TechTag key={techIndex}>{tech}</TechTag>
-                ))}
-              </ProjectTech>
-              {project.github && (
-                <ProjectLinks>
-                  <ProjectLink href={project.github} target="_blank" rel="noopener noreferrer">
-                    <i className="fab fa-github"></i>
-                  </ProjectLink>
-                </ProjectLinks>
-              )}
-            </ProjectCard>
-          ))}
-        </ProjectsGrid>
-      </div>
-    </ProjectsSection>
-  );
-};
-
-export default Projects; 
+const Projects=()=>{const reduce=useReducedMotion();return <Section id="work"><div className="container"><Head><div><Kicker>Featured products / 2025—26</Kicker><Heading>Built for real<br/>people.</Heading></div><Intro>My strongest work combines product thinking, full-stack engineering, and practical AI—not AI for its own sake.</Intro></Head><List>{featured.map((p,i)=><Project key={p.title} initial={reduce?false:{opacity:0,y:35}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.2}} transition={{duration:.55}}><Visual className="visual" $tone={p.tone}><VisualBar><i/><i/><i/></VisualBar><Number>0{i+1}</Number><ProjectImage src={p.image} alt={`${p.title} live product screenshot`} loading="lazy"/></Visual><div><Meta>{p.label}</Meta><Name>{p.title}</Name><Desc>{p.summary}</Desc><Points>{p.points.map(x=><li key={x}>{x}</li>)}</Points><Tags>{p.tags.map(t=><span key={t}>{t}</span>)}</Tags><LaunchLink href={p.href} target="_blank" rel="noreferrer">Open live product ↗</LaunchLink></div></Project>)}</List><BuildHead><div><Kicker>Technical builds</Kicker><h3>Substantial side missions.</h3></div><p>Deeper systems and team projects—smaller than my deployed products, but built around meaningful engineering challenges.</p></BuildHead><BuildGrid>{builds.map(p=><BuildCard key={p.title} data-symbol={p.symbol}><small>{p.label}</small><h4>{p.title}</h4><ul>{p.points.map(x=><li key={x}>{x}</li>)}</ul><div className="stack">{p.tags.map(x=><span key={x}>{x}</span>)}</div><CardLinks><a href={p.href} target="_blank" rel="noreferrer">Repository ↗</a><a href={p.report} target="_blank" rel="noreferrer">Project report ↗</a></CardLinks></BuildCard>)}</BuildGrid><SideHead><div><Kicker>Side quests</Kicker><h3>Smaller explorations.</h3></div><p>School assignments, data investigations, and playful builds that helped me learn a specific tool or idea.</p></SideHead><Archive>{side.map((p,i)=><SmallCard key={p[0]}><span>0{i+3} · {p[1]}</span><h4>{p[0]}</h4><p>{p[2]}</p></SmallCard>)}</Archive></div></Section>};
+export default Projects;

@@ -1,21 +1,6 @@
 export const theme = {
-  colors: {
-    bgPrimary: '#0a0a0a',
-    bgSecondary: '#1a1a1a',
-    textPrimary: '#ffffff',
-    textSecondary: '#888888',
-    accent: '#64ffda',
-  },
-  fonts: {
-    primary: "'Inter', -apple-system, BlinkMacSystemFont, sans-serif",
-  },
-  transitions: {
-    default: 'all 0.3s ease',
-  },
-  maxWidth: '1200px',
-  borderRadius: {
-    small: '4px',
-    medium: '10px',
-    large: '15px',
-  }
-}; 
+  colors: { paper: '#f5f2e8', paperStrong: '#ebe7da', ink: '#181817', muted: '#64625d', blue: '#3157e2', blueDark: '#1f3fb7', lime: '#c9f05c', orange: '#ff7a4d', white: '#fffdf8', line: '#24231f' },
+  fonts: { primary: "'Arial', 'Helvetica Neue', sans-serif", mono: "'SFMono-Regular', Consolas, 'Liberation Mono', monospace" },
+  maxWidth: '1240px',
+  radius: { small: '12px', medium: '22px', large: '34px' },
+};
