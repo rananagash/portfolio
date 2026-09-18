@@ -29,13 +29,15 @@ const Menu = styled.button`
   @media (max-width: 700px) { display: grid; place-items: center; }
 `;
 
+const resumeUrl = new URL('../../documents/Rana_Nagash_Resume.pdf', import.meta.url).href;
+
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   useEffect(() => { const close = () => setOpen(false); window.addEventListener('resize', close); return () => window.removeEventListener('resize', close); }, []);
   return <Wrap><Nav aria-label="Main navigation">
     <Brand href="#top" onClick={() => setOpen(false)}>RANA<span>.</span></Brand>
     <Links $open={open}>
-      <a href="#work" onClick={() => setOpen(false)}>Work</a><a href="#experience" onClick={() => setOpen(false)}>Experience</a><a href="#playground" onClick={() => setOpen(false)}>Playground</a><a href="#about" onClick={() => setOpen(false)}>About</a>
+      <a href="#work" onClick={() => setOpen(false)}>Work</a><a href="#experience" onClick={() => setOpen(false)}>Experience</a><a href="#playground" onClick={() => setOpen(false)}>Playground</a><a href="#about" onClick={() => setOpen(false)}>About</a><a href="#contact" onClick={() => setOpen(false)}>Contact</a><a href={resumeUrl} target="_blank" rel="noreferrer" onClick={() => setOpen(false)}>Resume ↗</a>
       <Status href="mailto:nagashrana@gmail.com">Let’s talk</Status>
     </Links>
     <Menu type="button" aria-label="Toggle navigation" aria-expanded={open} onClick={() => setOpen(!open)}>{open ? '×' : '☰'}</Menu>

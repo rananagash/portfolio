@@ -1,0 +1,13 @@
+import { motion, useReducedMotion } from 'framer-motion';
+import styled from 'styled-components';
+import { theme } from '../styles/theme';
+
+const Section=styled.section`padding:85px 0 110px;background:${theme.colors.paperStrong};border-bottom:1.5px solid ${theme.colors.line};`;
+const Card=styled(motion.article)`position:relative;overflow:hidden;display:grid;grid-template-columns:.72fr 1.28fr;gap:55px;padding:clamp(30px,5vw,62px);background:${theme.colors.lime};border:1.5px solid ${theme.colors.line};border-radius:${theme.radius.large};box-shadow:8px 9px 0 ${theme.colors.line};&::after{content:'30+';position:absolute;right:-18px;bottom:-55px;font-size:11rem;font-weight:900;letter-spacing:-.08em;color:white;opacity:.5}@media(max-width:760px){grid-template-columns:1fr;gap:28px;&::after{font-size:8rem}}`;
+const Intro=styled.div`position:relative;z-index:1;small{font:800 .75rem ${theme.fonts.mono};text-transform:uppercase;letter-spacing:.1em;color:${theme.colors.blue}}h2{font-size:clamp(2.5rem,5vw,4.8rem);line-height:.94;letter-spacing:-.06em;margin:15px 0 0}`;
+const Content=styled.div`position:relative;z-index:1;`;
+const Role=styled.div`display:flex;justify-content:space-between;gap:20px;align-items:start;padding-bottom:20px;border-bottom:1.5px solid ${theme.colors.line};h3{font-size:1.45rem;margin:0 0 5px}.org{font-weight:800;color:${theme.colors.blue}}time{font:800 .7rem ${theme.fonts.mono};text-transform:uppercase;white-space:nowrap;padding-top:6px}@media(max-width:500px){flex-direction:column;gap:8px}`;
+const Points=styled.ul`list-style:none;padding:24px 0 0;margin:0;display:grid;gap:14px;li{position:relative;padding-left:25px;font-size:1rem;max-width:680px}li::before{content:'↳';position:absolute;left:0;color:${theme.colors.blue};font-weight:900}`;
+
+const Leadership=()=>{const reduce=useReducedMotion();return <Section id="leadership"><div className="container"><Card initial={reduce?false:{opacity:0,y:30}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.25}} transition={{duration:.55}}><Intro><small>Leadership experience</small><h2>Helping others launch.</h2></Intro><Content><Role><div><h3>Computer Science Peer Mentor</h3><div className="org">UofT First-Year Learning Communities</div></div><time>Aug. 2025 — Present</time></Role><Points><li>Co-leading and planning weekly sessions for more than 30 first-year Computer Science students.</li><li>Delivering technical workshops on Git, web development, and mathematical concepts in CS.</li><li>Collaborating with faculty to create initiatives that help new students feel supported and succeed.</li></Points></Content></Card></div></Section>};
+export default Leadership;

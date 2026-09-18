@@ -6,6 +6,7 @@ import Hero from './components/Hero';
 import Projects from './components/Projects';
 import Playground from './components/Playground';
 import Experience from './components/Experience';
+import Leadership from './components/Leadership';
 import About from './components/About';
 import Contact from './components/Contact';
 
@@ -14,7 +15,7 @@ const App = () => (
     <GlobalStyles />
     <a className="sr-only" href="#main">Skip to content</a>
     <Navbar />
-    <main id="main"><Hero /><Projects /><Experience /><Playground /><About /><Contact /></main>
+    <main id="main"><Hero /><Projects /><Experience /><Leadership /><Playground /><About /><Contact /></main>
   </ThemeProvider>
 );
 export default App;
