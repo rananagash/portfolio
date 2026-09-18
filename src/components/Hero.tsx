@@ -3,6 +3,8 @@ import { motion, useReducedMotion } from 'framer-motion';
 import styled, { keyframes } from 'styled-components';
 import { theme } from '../styles/theme';
 
+const portraitUrl = new URL('../../images/me.jpeg', import.meta.url).href;
+
 const float = keyframes`0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-10px) rotate(2deg)}`;
 const blink = keyframes`0%,45%{opacity:1}46%,100%{opacity:.25}`;
 const HeroSection = styled.section`min-height: 860px; padding: 150px 0 80px; display: grid; align-items: center; @media(max-width:900px){padding-top:130px; min-height:auto;}`;
@@ -31,7 +33,7 @@ const Hero = () => {
     </motion.div>
     <World aria-label="An isometric AI workspace with Rana and three helper agents" onMouseMove={e=>{if(reduce)return;const r=e.currentTarget.getBoundingClientRect();setTilt({x:(e.clientY-r.top-r.height/2)/45,y:(e.clientX-r.left-r.width/2)/45})}} onMouseLeave={()=>setTilt({x:0,y:0})} animate={{rotateX:-tilt.x,rotateY:tilt.y}} transition={{type:'spring',stiffness:80,damping:18}}>
       <Platform/><Console/><Person/><Agent $x="10%" $y="27%" $color={theme.colors.lime} $delay="0s">⌕</Agent><Agent $x="76%" $y="55%" $color="#fff" $delay="-.8s">⚙</Agent><Agent $x="16%" $y="72%" $color="#ffb49a" $delay="-1.6s">✦</Agent>
-      <MiniPortrait><img src="/images/me.jpeg" alt="Rana Nagash"/></MiniPortrait>
+      <MiniPortrait><img src={portraitUrl} alt="Rana Nagash"/></MiniPortrait>
       <Bubble><span>builder_agent:</span><br/>prototype ready for review_</Bubble><Label>RANA'S BUILD LAB / 01</Label>
     </World>
   </Grid></div></HeroSection>;
